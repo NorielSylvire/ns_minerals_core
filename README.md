@@ -26,7 +26,7 @@ Example of how to call a method:
 nsmc.register_nodes("mymod", mineral3)
 ```
 
---
+---
 **`nsmc.register_minerals(modname, minerals)`**
 Parameters:
 * modname: a `string` value. This must be the name of your mod.
@@ -36,7 +36,7 @@ For example, if your mod is named `mymod`, then modname should be equal to "mymo
 This method makes sure the `minerals` table is formatted correctly, defaults `nil` values and calls `nsmc.register_crafts()`, `nsmc.register_mineral_craftitems()`, `nsmc.register_tools()`, `nsmc.register_oregen()`, and `nsmc.register_nodes()` once per `mineral` defined in the `minerals` table passed.
 This is really the only method you would normally be calling when using this API as intended.
 
---
+---
 **`nsmc.register_crafts(modname, mineral)`**
 Parameters:
 * modname: a `string` value. This must be the name of your mod.
@@ -45,7 +45,7 @@ Parameters:
 This method registers all the crafting recipes of a mineral.
 Examples: the recipes for the axe, sword, pickaxe, block...
 
---
+---
 **`nsmc.register_craftitems(modname, mineral)`**
 Parameters:
 * modname: a `string` value. This must be the name of your mod.
@@ -54,7 +54,7 @@ Parameters:
 This method registers all the items of a mineral.
 Examples: lump, ingot...
 
---
+---
 **`nsmc.register_tools(modname, mineral)`**
 Parameters:
 * modname: a `string` value. This must be the name of your mod.
@@ -63,7 +63,7 @@ Parameters:
 This method registers all the tools of a mineral.
 Examples: the actual axe, pickaxe, sword, shovel...
 
---
+---
 **`nsmc.register_oregen(modname, mineral, sobelow_present)`**
 Parameters:
 * modname: a `string` value. This must be the name of your mod.
@@ -72,7 +72,7 @@ Parameters:
 
 This method registers all the ores of a mineral, with their depths, scarcities, etc.
 
---
+---
 **`nsmc.register_nodes(modname, mineral)`**
 Parameters:
 * modname: a `string` value. This must be the name of your mod.
@@ -87,12 +87,12 @@ Examples: the actual ore node, the block resulting from combining 9 of the item 
 
 This API currently supports two data structures;
 
---
+---
 **`minerals` Array**
 
 This is just an array of `mineral` tables. Must be passed as a parameter to `nsmc.register_minerals()`.
 
---
+---
 **`mineral` Table**
 
 This table can contain all of the data needed to register everything pertaining to a mineral, such as tools, nodes, ores, crafting recipes, etcetera.
@@ -112,7 +112,7 @@ Each member's section title contains the name of the member and the value type s
 Example: `name`, `string`
 The above example means the member is called `name`, and it takes on `string` type values.
 
---
+---
 **`name`, `string`**
 This is just the name of the mineral. It must be given a valid `string` value.
 
@@ -120,20 +120,20 @@ Default value: A string consisting of the name of your mod + the index of this `
 Examples: "mymod1mineral", "superdupercoolnewores13mineral".
 As a result of this, if the default value gets used, your items will have amazing names such as "Superdupercoolnewores13mineral Sword", or "Lump of Mymod1mineral".
 
---
+---
 **`mineral_type`, `string`**
 Default: `"metal"`
 This can be either `"metal"` or `"gem"`.
 If it is a metal, the mineral will be registered with a lump and an ingot. If it is a gem, it won't have an ingot or a lump, instead it will have a gem type `craftitem`.
 
---
+---
 **`use_custom_textures`, `bool`***
 Default: `false`
 If this is enabled, you will be able to use your own textures inside your mod's `\textures` folder.
 Any custom textures you don't set will default to a colorized premade grayscale texture from nsmc's `\textures` folder.
 If this is disabled, all generated textures will be colorized premade grayscale textures.
 
---
+---
 **`color`, `ColorString`**
 Default: "no_color"
 The color of your mineral. It must be a hexadecimal color string. You can search for "hex color picker" and use an online tool for this.
@@ -144,18 +144,18 @@ You do not even need to make and use your own textures for your minerals, just s
 ***Special values***
 * `"no_color"`: if you set color as this value, grayscale textures will not be colorized. This is the default value.
 
---
+---
 **`texture_brightness`, `string`**
 Default: `"bright"`
 Can be `"bright"`, `"medium"` or `"dark"`.
 Changes what set of premade grayscale textures the mineral will use. Just changing the `color` doesn't give you complete control over what the texture looks like, so three sets of premade grayscale were created, each with a different brightness.
 
---
+---
 **`ore_texture`, `string`**
 Default: `texture_brightness` + `"_ore_overlay"
 This is the name of the texture overlayed on top of the node where the ore gets generated, minus the `".png"`.
 
---
+---
 **`wherein_texture`, `string`**
 Default: `"default_stone.png"`
 The texture over which the `ore_texture` will be overlayed, WITH the `".png"`. Typically, this should be the same node the ore has generated in.
@@ -163,12 +163,12 @@ At the moment, you can only set one of these per mineral.
 ***Special values***
 * `"no_base_texture"`: it makes the final ore texture be only the `ore_texture`, without being overlayed on top of another texture.
 
---
+---
 **`block_texture`, `string`**
 Default: `texture_brightness` + `"_metal_block"
 The texture used for the block you can craft by combining nine of this mineral's item in a crafting grid, WITHOUT the `".png"`.
 
---
+---
 **`material_texture`, `string`**
 Default: `texture_brightness` + `" _ingot_1"`
 The texture used for the ingot `craftitem` of metal type minerals, and the gem for gem 
@@ -182,19 +182,19 @@ Default: `texture_brightness` + `" _lump_1"`
 Same as `material_texture` only this one is for lumps instead of ingots or gems, and is only used by metal type minerals.
 Also comes in three brightness variants, and two different styles; `1` and `2`.
 
---
+---
 **`material_texture_index`, `int`**
 Default: `2`
 This is the number at the end of `material_texture` when not using custom textures.
 In the current version can be either `1` or `2` for metals and `1`, `2`, or `3` for gems.
 Each number corresponds to the three brightness variations of the `"...ingot_1"`, `"...ingot_2"`, `"...gem_1"`, `"...gem_2"`, and `"...gem_3"` textures found in the `\textures` folder.
 
---
+---
 **`lump_texture_index`, `int`**
 Default: `1`
 Same as the previous, only this one is the number at the end of `lump_texture`, it only gets used by metal type minerals, and can range from `1` to `2`, both included.
 
---
+---
 **`tool` + `_texture_` + `head` or `handle` or `blade`, `string`**
 `tool` can be one of:
 * `axe`
@@ -209,7 +209,7 @@ This is the texture for each tool type. It must be a `string`, and it must not c
 ***Special values***
 * `"no_texture"`: if any handle is set to this value, the handle will not be rendered.
 
---
+---
 **`word` + `_colorize`, `bool`**
 Default: `true`
 `word` can be one of:
@@ -228,45 +228,45 @@ It is enabled by default so leave this out if you want everything to be colorize
 This can be useful if you, for example, have a custom sword texture and thus you need to activate `use_custom_textures`, but you want every other item texture to be generated automatically.
 In this example you should set `sword_colorize` to false, and leave all other colorizes out of the mineral definition so that they default to true. You should also set `use_custom_textures` to `true`, and change `sword_texture_blade` to your texture's name without the `".png"`. You should probably also set `sword_texture_handle` to `"nothing"` too, or set it to the same value as `sword_texture_blade`.
 
---
+---
 **`flammable`, `bool`**
 Default: `false`
 
 Enable this if you want your mineral to be useable as a fuel in furnaces.
 
---
+---
 **`skymineral`, `bool`**
 Default: `false`
 
 If you enable this, the ore will be able to spawn in the floatlands. WIP. Do not use this feature! It does nothing in the current version!
 
---
+---
 **`burntime`, `int`**
 Default: `1` for flammable minerals, `0` otherwise.
 
 The amount of time, in seconds, that the mineral lasts as a fuel source in furnaces.
 
---
+---
 **`block_burntime`, `int`**
 Default: `9` times the `burntime` + `5`
 
 The amount of time, in seconds, that the block made out of nine ingots or gems lasts as a fuel source in furnaces.
 Typically nine times more than the item itself, plus a little bonus to make crafting this worthwhile.
 
---
+---
 **`ctime`, `int`**
 Default: `6`
 
 Time, in seconds, it takes for the metal lump to be cooked into the metal ingot.
 Only works on metal type minerals.
 
---
+---
 **`node`, `node` table**
 Default: `{ groups = { cracky = 2 } }`
 
 A `node` table that contains the `groups` of the node mineral's nodes.
 
---
+---
 **`groups`, `groups` table**
 Default: `{ cracky = 2 }`
 
@@ -274,7 +274,7 @@ A table containing pairs of node groups and integer values, separated by comas. 
 
 Example: `{ cracky = 1, choppy = 2, snappy = 3 }`
 
---
+---
 **`toolname`, `tool` table**
 Default: Same values as all the default iron tools
 
@@ -287,13 +287,13 @@ Default: Same values as all the default iron tools
 
 This table can contain a `full_punch_interval`, `times`, `uses`, `maxlevel`, and a `damage` member. If one or more of these is left out, they will take the default values (same values as the iron tools).
 
---
+---
 **`full_punch_interval`, `float`**
 Default: Same as the equivalent iron tool
 
 Time, in seconds, the player has to wait between clicks to deal full damage. If, instead, the player spam-clicks the tool faster than the `full_punch_interval`, the damage dealt will be reduced.
 
---
+---
 **`times`, `times` dictionary**
 Default: Same as the equivalent iron tool
 
@@ -309,7 +309,7 @@ Indeed, for some reason, tier `3` means weaker than tier `2` in minetest's code,
 However if you want to add a new tier of minerals, stronger than diamond, I suggest that instead of following the illogical downward trend you add that stronger-than-diamond ore as a tier `4` ore, and then stronger minerals will be tier `5`, `6` and so on.
 
 
---
+---
 **`uses`, `int`**
 Default: Same as the equivalent iron tool
 
@@ -317,19 +317,19 @@ Number of uses the tool has.
 Remember that a tool loses exponentially less uses the greater the difference between the tool's `maxlevel` and the node's tier is. See [my Guide on how to understand tool and node parameters and how to add new tiers of ore](https://forum.minetest.net/viewtopic.php?t=27811) for a more detailed explanation.
 
 
---
+---
 **`maxlevel`, `int`**
 Default: Same as the equivalent iron tool
 
 Maximum level of node the tool can break. It is also used to calculate how many uses the tool loses by breaking a node.
 
---
+---
 **`damage`, `int`**
 Default: Same as the equivalent iron tool
 
 Amount of damage the tool deals.
 
---
+---
 **`vanilla_oregen`, `vanilla_oregen` table**
 Default: Same values as the ore generation parameters of iron in the default mod
 
@@ -339,58 +339,58 @@ If the arrays contain more than one value each, the API will register as many or
 Example:
 If the arrays have two values each, like in the default values they are given, the API will register two ores using the first value in each array first, then the second value in each array.
 
---
+---
 **`wherein_node`, `string`**
 Default: `"defaul:stone"`
 
 The node in which the ore can be generated.
 
---
+---
 **`scarcity`, array of `int`**
 Default: `{ 7, 24 }`
 
 This is an array of integer numbers. The result of raising each number to the third power is equal to `1 / chance` where `chance` is the chance of the node being converted to the ore if it is the same as `wherein_node`.
 That is to say, larger numbers means lower chance, smaller numbers means greater chance of the ore spawning.
 
---
+---
 **`num_ores`, array of `int`**
 Default: `{ 5, 27 }`
 
 The number of ores that will spawn in a cluster of ores when it is generated.
 Greater number means more ores per cluster. Cannot be larger than `size` raised to the third power.
 
---
+---
 **`size`, array of `int`**
 Default: `{ 3, 6 }`
 
 The length of each edge of the cube that contains each cluster of ores.
 A larger number means the ore will be more spread out, but it will also allow for greater values of `num_ores`.
 
---
+---
 **`max`, array of `int`**
 Default: `{ 0, -64 }`
 
 An array with the highest Y-coordinates the ore can be generated in.
 
---
+---
 **`min`, array of `int`**
 Default: `{ -31000, -31000 }`
 
 An array with the lowest Y-coordinates the ore can be generated in.
 
---
+---
 **`floatlands_oregen`, `floatlands_oregen` table**
 
 WIP. Not implemented yet. Currently does nothing. Will likely be removed as it can probably be simulated by the `vanilla_oregen` table.
 
---
+---
 **`sobelow_oregen`, `sobelow_oregen` table**
 WIP. Not implemented yet.
 Will be very different from the `vanilla_oregen` table, potentially more complex.
 It is designed to register the ore generation of minerals while the `ns_sobelow` mod is installed.
 Since `ns_sobelow` is still in very early development this feature cannot be completed yet.
 
---
+---
 Lastly, there will be support for a new feature called `super_mining_layer` soon.
 The super mining layer is a configurable layer in which all the minerals will be able to spawn with custom parameters for anyone who doesn't like their ores to be generated in exclusive layers.
 More on this topic soon.
