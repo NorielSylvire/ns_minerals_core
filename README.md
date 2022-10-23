@@ -140,7 +140,7 @@ If this is disabled, all generated textures will be colorized premade grayscale 
 Default: "no_color"
 
 The color of your mineral. It must be a hexadecimal color string. You can search for "hex color picker" and use an online tool for this.
-Correct `ColorString`s look like `#ffffff` or `# + six numbers or letters.
+Correct `ColorString`s look like `#ffffff` or `#` + six numbers or letters.
 This value will be overlayed on top of your mineral's textures.
 This is useful when your textures are grayscale. But even more useful is the fact that `ns_minerals_core` supplies you with premade grayscale textures.
 You do not even need to make and use your own textures for your minerals, just specify any `ColorString` and the mod will colorize the grayscale textures that come with it for you.
