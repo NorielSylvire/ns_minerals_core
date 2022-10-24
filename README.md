@@ -1,7 +1,13 @@
 # Noriel_Sylvire's Minerals Core
 Version: 1.0
-Licenses: Code: LGPL 2.1 Textures: CC-BY-SA, CC-BY
+
+Licenses:
+Code: LGPL 2.1
+Textures: CC-BY-SA, CC-BY
+
 Read license.txt for more information.
+
+---
 
 This mod contains an API for automatically registering everything related to an ore, or mineral.
 Noriel_Sylvire's Minerals Core depends on the `nslib` mod. Remember to install it if you are planning on using this mod.
