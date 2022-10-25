@@ -1,5 +1,8 @@
 # Noriel_Sylvire's Minerals Core
-Version: 1.0
+Version: 1.1
+
+Copyright (c) 2020 Noriel_Sylvire (Flaviu E. Hongu)
+Copyright (c) 2016 TenPlus1 (for the scythe registration code)
 
 Licenses:
 Code: LGPL 2.1
@@ -16,6 +19,12 @@ Note: All of my mods that aren't forks of other mods, made specifically for a ga
 From here on, this mod will be refered to as nsmc, which stands for Noriel_Sylvire's Minerals Core.
 When `ns_minerals_core` is used in this file, it is the technical name of this mod, the one you must type in the `depends` section of your `mod.conf` file, or whenever you are looking for this mod's folder.
 Below is the documentation on how to use the API.
+
+---
+## Changelog
+
+* 1.1 - Improved API documentation and corrected spelling mistakes. Added compatibility with farming mod. Added working hoes and scythes. Added the ability to choose the `texture_brightness` while using custom textures for the tools that do not have custom textures. Changed `is_metal` from `crafting.lua` to `mineral.mineral_type == "metal"`. It was a legacy variable name from back in 2020, when this API was part of nsam mod. The incorrect name caused metal type minerals to not register recipes.
+* 1.0 - Initial release: Automatic registration of tools, nodes, ores, craftitems and crafting recipes. Automatic generation of colorized textures for ALL the items from premade grayscale textures shipped with the API.
 
 ---
 ## API Documentation
@@ -120,11 +129,13 @@ The above example means the member is called `name`, and it takes on `string` ty
 
 ---
 ### name, string
+Default: `modname` + `i` + `"mineral"` where `i` is the index of the mineral in the array of minerals.
+
 This is just the name of the mineral. It must be given a valid `string` value.
 
 Default value: A string consisting of the name of your mod + the index of this `mineral` table in the `minerals` array + "mineral".
-Examples: "mymod1mineral", "superdupercoolnewores13mineral".
-As a result of this, if the default value gets used, your items will have amazing names such as "Superdupercoolnewores13mineral Sword", or "Lump of Mymod1mineral".
+Examples: `"mymod1mineral"`, `"superdupercoolnewores13mineral"`.
+As a result of this, if the default value gets used, your items will have amazing names such as `"Superdupercoolnewores13mineral Sword"`, or `"Lump of Mymod1mineral"`.
 
 ---
 ### mineral_type, string
@@ -143,7 +154,7 @@ If this is disabled, all generated textures will be colorized premade grayscale 
 
 ---
 ### color, ColorString
-Default: "no_color"
+Default: `"no_color"`
 
 The color of your mineral. It must be a hexadecimal color string. You can search for "hex color picker" and use an online tool for this.
 Correct `ColorString`s look like `#ffffff` or `#` + six numbers or letters.
@@ -179,7 +190,7 @@ At the moment, you can only set one of these per mineral.
 
 ---
 ### block_texture, string
-Default: `texture_brightness` + `"_metal_block"
+Default: `texture_brightness` + `"_metal_block"`
 
 The texture used for the block you can craft by combining nine of this mineral's item in a crafting grid, WITHOUT the `".png"`.
 
@@ -215,6 +226,8 @@ Same as the previous, only this one is the number at the end of `lump_texture`, 
 
 ---
 ### tool + _texture_ + head or handle or blade, string
+Default: `texture_brightness` + `"_"` + `"head"` or `"handle"` or `"blade"`
+
 `tool` can be one of:
 * `axe`
 * `pick`
@@ -224,6 +237,12 @@ Same as the previous, only this one is the number at the end of `lump_texture`, 
 
 Use `blade` instead of `head` for swords, use `head` for everything else.
 This is the texture for each tool type. It must be a `string`, and it must not contain the `".png"` at the end.
+Each tool type has one handle texture and one head or blade texture. By default, if you do not proide a handle texture, a normal wooden handle provided by the API will be used.
+Then the head texture is overlayed on top of the handle texture. If you enabled it or left it out of the definition, the head or blade will be colorized.
+If you don't provide a texture for the head, the API will use a default one based on the `texture_brightness` you set (`bright` by default).
+
+Examples:
+`"bright_sword_blade"`, `"dark_pick_head"`, `"axe_handle"`
 
 ***Special values***
 * `"no_texture"`: if any handle is set to this value, the handle will not be rendered.

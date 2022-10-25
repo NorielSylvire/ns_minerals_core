@@ -20,8 +20,8 @@ function nsmc.generate_recipe(mat, recipe)
 	if recipe == "pick" then
 		return {{mat, mat, mat}, {"", "group:stick", ""}, {"", "group:stick", ""}}
 	end
-	if recipe == "hoe" then
-		return {{mat, mat}, {"", "group:stick"}, {"", "group:stick"}}
+	if recipe == "scythe" then	-- so that scythes don't use four ingots or gems, three sticks are used instead
+		return {{mat, "group:stick", mat}, {mat, "group:stick", ""}, {"", "group:stick", ""}}
 	end
 	if recipe == "block" then
 		return {{mat, mat, mat}, {mat, mat, mat}, {mat, mat, mat}}
@@ -32,7 +32,7 @@ function nsmc.register_crafts(modname, mat)
 	modname = modname..":" --Used when you only want the mod's name, then tool type, then material's name. For example: ns_arkane_minerals:sword_mithril
 	local modmat = modname..mat.name --Used when you want the mod's name right next to the material's name. For example: ns_arkane_minerals:mithril_block
 	local matingot = modmat --The formatted name of the material used for crafting. If it's a metal, it gets "_ingot" added to the end, otherwise it stays the same.
-	if is_metal then 
+	if mat.mineral_type == "metal" then
 		matingot = modmat.."_ingot"
 		minetest.register_craft({
 			type = "shaped",
@@ -52,7 +52,7 @@ function nsmc.register_crafts(modname, mat)
 			recipe = nsmc.generate_recipe(modmat, "block")
 		})
 	end
-	if is_fuel then
+	if mat.flammable then
 		minetest.register_craft({
 			type = "fuel",
 			recipe = modmat,
@@ -84,9 +84,11 @@ function nsmc.register_crafts(modname, mat)
 		output = modname.."shovel_"..mat.name,
 		recipe = nsmc.generate_recipe(matingot, "shovel")
 	})
-	minetest.register_craft({
-		type = "shaped",
-		output = modname.."hoe_"..mat.name,
-		recipe = nsmc.generate_recipe(matingot, "hoe")
-	})
+	if farming.scythe_not_drops then	-- if farming.scythe_not_drops exists, it means farming mod has scythes, else it is an older version with no scythes
+		minetest.register_craft({
+			type = "shaped",
+			output = modname.."scythe_"..mat.name,
+			recipe = nsmc.generate_recipe(matingot, "scythe")
+		})
+	end
 end

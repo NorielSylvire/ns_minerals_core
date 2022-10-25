@@ -32,12 +32,14 @@ local default_path = minetest.get_modpath("ns_minerals_core")
 nsmc = {}
 
 nsmc.odeps = {
-	sobelow = (minetest.get_modpath("ns_sobelow") ~= nil)
+	sobelow = minetest.get_modpath("ns_sobelow") ~= nil,
+	farming = minetest.get_modpath("farming") ~= nil
 }
 
 dofile(default_path.."/crafting.lua")
 dofile(default_path.."/craftitems.lua")
 dofile(default_path.."/tools.lua")
+dofile(default_path.."/hoes.lua")
 dofile(default_path.."/nodes.lua")
 dofile(default_path.."/oregen.lua")
 
@@ -74,6 +76,7 @@ function nsmc.register_minerals(modname, minerals)
 		mineral.pick_colorize = mineral.pick_colorize or true
 		mineral.shovel_colorize = mineral.shovel_colorize or true
 		mineral.hoe_colorize = mineral.hoe_colorize or true
+		mineral.scythe_colorize = mineral.scythe_colorize or true
 		mineral.lump_colorize = mineral.lump_colorize or true
 		mineral.material_colorize = mineral.material_colorize or true
 		
@@ -93,6 +96,9 @@ function nsmc.register_minerals(modname, minerals)
 			mineral.hoe_texture_handle = "hoe_handle"
 			mineral.hoe_texture_head = mineral.texture_brightness.."_hoe_head"
 			
+			mineral.scythe_texture_handle = "scythe_handle"
+			mineral.scythe_texture_head = mineral.texture_brightness.."_scythe_head"
+			
 			if mineral.mineral_type == "metal" then
 				mineral.lump_texture = mineral.texture_brightness.."_lump_"..mineral.lump_texture_index
 				mineral.material_texture = mineral.texture_brightness.."_ingot_"..mineral.material_texture_index
@@ -101,25 +107,28 @@ function nsmc.register_minerals(modname, minerals)
 			end
 		else	-- any textures you don't provide will use the default texture
 			mineral.axe_texture_handle = mineral.axe_texture_handle or "axe_handle"
-			mineral.axe_texture_head = mineral.axe_texture_head or "bright_axe_head"
+			mineral.axe_texture_head = mineral.axe_texture_head or mineral.texture_brightness.."_axe_head"
 			
 			mineral.sword_texture_handle = mineral.sword_texture_handle or "sword_handle"
-			mineral.sword_texture_blade = mineral.sword_texture_blade or "bright_sword_blade"
+			mineral.sword_texture_blade = mineral.sword_texture_blade or mineral.texture_brightness.."_sword_blade"
 			
 			mineral.pick_texture_handle = mineral.pick_texture_handle or "pick_handle"
-			mineral.pick_texture_head = mineral.pick_texture_head or "bright_pick_head"
+			mineral.pick_texture_head = mineral.pick_texture_head or mineral.texture_brightness.."_pick_head"
 			
 			mineral.shovel_texture_handle = mineral.shovel_texture_handle or "shovel_handle"
-			mineral.shovel_texture_head = mineral.shovel_texture_head or "bright_shovel_head"
+			mineral.shovel_texture_head = mineral.shovel_texture_head or mineral.texture_brightness.."_shovel_head"
 			
 			mineral.hoe_texture_handle = mineral.hoe_texture_handle or "hoe_handle"
-			mineral.hoe_texture_head = mineral.hoe_texture_head or "bright_hoe_head"
+			mineral.hoe_texture_head = mineral.hoe_texture_head or mineral.texture_brightness.."_hoe_head"
+			
+			mineral.scythe_texture_handle = mineral.scythe_texture_handle or "scythe_handle"
+			mineral.scythe_texture_head = mineral.scythe_texture_head or mineral.texture_brightness.."_scythe_head"
 			
 			if mineral.mineral_type == "metal" then
-				mineral.lump_texture = mineral.lump_texture or "bright_lump_"..mineral.lump_texture_index
-				mineral.material_texture = mineral.material_texture or "bright_ingot_"..mineral.material_texture_index
+				mineral.lump_texture = mineral.lump_texture or mineral.texture_brightness.."_lump_"..mineral.lump_texture_index
+				mineral.material_texture = mineral.material_texture or mineral.texture_brightness.."_ingot_"..mineral.material_texture_index
 			else
-				mineral.material_texture = mineral.material_texture or "bright_crystal_"..mineral.material_texture_index
+				mineral.material_texture = mineral.material_texture or mineral.texture_brightness.."_crystal_"..mineral.material_texture_index
 			end
 		end
 		
@@ -161,11 +170,10 @@ function nsmc.register_minerals(modname, minerals)
 		mineral.shovel.damage = mineral.shovel.damage or 3
 		
 		mineral.hoe = mineral.hoe or {}
-		mineral.hoe.full_punch_interval = mineral.hoe.full_punch_interval or 1.1
-		mineral.hoe.times = mineral.hoe.times or { [1] = 1.0, [2] = 0.50, [3] = 0.20 }
 		mineral.hoe.uses = mineral.hoe.uses or 200
-		mineral.hoe.maxlevel = mineral.hoe.maxlevel or 2
-		mineral.hoe.damage = mineral.hoe.damage or 3
+		
+		mineral.scythe = mineral.scythe or {}
+		mineral.scythe.uses = mineral.scythe.uses or 250
 		
 		mineral.vanilla_oregen = mineral.vanilla_oregen or {}	-- this bit here is used by normal ore generation, regardless of installed mods and settings
 		mineral.vanilla_oregen.wherein_node = mineral.vanilla_oregen.wherein_node or "default:stone"
@@ -185,5 +193,12 @@ function nsmc.register_minerals(modname, minerals)
 		nsmc.register_tools(modname, mineral)
 		nsmc.register_oregen(modname, mineral, nsmc.odeps.sobelow)
 		nsmc.register_nodes(modname, mineral)
+		
+		if nsmc.odeps.farming then
+			nsmc.register_hoe(modname, mineral)
+		end
+		if farming.scythe_not_drops then	-- if farming.scythe_not_drops table exists it means the version of farming mod installed contains scythes
+			nsmc.register_scythe(modname, mineral)
+		end
 	end
 end

@@ -91,23 +91,4 @@ function nsmc.register_tools(modname, mineral)
 		sound = {breaks = "default_tool_breaks"},
 		groups = {shovel = 1}
 	})
-
-	minetest.register_tool(modname..":hoe_"..name, {
-		description = nslib.first_to_upper(name).." Hoe",
-		inventory_image = nslib.tern(mineral.hoe_texture_handle ~= "no_texture", mineral.hoe_texture_handle..".png", "")
-						.."^("
-						..mineral.hoe_texture_head..".png"
-						..nslib.tern(mineral.color ~= "no_color" and mineral.hoe_colorize, "^[multiply:"..mineral.color, "")
-						..")",
-		tool_capabilities = {
-			full_punch_interval = mineral.hoe.full_punch_interval,
-			max_drop_level = mineral.hoe.maxlevel,
-			groupcaps = {
-				snappy = {times = mineral.hoe.times, uses = mineral.hoe.uses, maxlevel = mineral.hoe.maxlevel}
-			},
-			damage_groups = {fleshy = mineral.hoe.damage}
-		},
-		sound = {breaks = "default_tool_breaks"},
-		groups = {axe = 1}
-	})
 end
