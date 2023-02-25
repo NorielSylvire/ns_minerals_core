@@ -1,0 +1,9 @@
+[submodule "ns_minerals_core_mod"]
+	path = ns_minerals_core_mod
+	url = https://github.com/NorielSylvire/ns_minerals_core_mod
+[submodule "ns_minerals_default"]
+	path = ns_minerals_default
+	url = https://github.com/NorielSylvire/ns_minerals_default
+[submodule "ns_minerals_farming"]
+	path = ns_minerals_farming
+	url = https://github.com/NorielSylvire/ns_minerals_farming
