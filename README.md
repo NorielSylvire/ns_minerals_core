@@ -1,4 +1,4 @@
-# Noriel_Sylvire's Minerals Core Modpack
+# Noriel_Sylvire's Minerals Core Modpack [![Made With Love](https://img.shields.io/badge/Made%20With-Love-orange.svg)](https://github.com/chetanraj/awesome-github-badges)
 Version: 1.2
 
 Copyright (c) 2020 Noriel_Sylvire (Flaviu E. Hongu)
