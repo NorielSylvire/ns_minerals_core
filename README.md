@@ -1,5 +1,5 @@
 # Noriel_Sylvire's Minerals Core Modpack
-Version: 1.2
+Version: 1.2.1
 
 Copyright (c) 2020 Noriel_Sylvire (Flaviu E. Hongu)
 
