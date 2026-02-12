@@ -10,3 +10,6 @@
 [submodule "nslib"]
 	path = nslib
 	url = https://github.com/NorielSylvire/nslib
+[submodule "ns_minerals_afterloader"]
+	path = ns_minerals_afterloader
+	url = git@github.com:NorielSylvire/ns_minerals_afterloader.git
