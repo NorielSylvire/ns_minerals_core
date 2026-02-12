@@ -40,14 +40,12 @@ This acronym is used in the code; the callback list is part of a table called ns
 This table is used so that there are no conflicts with other mods that might also add a `register_callback()` or `register_minerals()` function.
 This table is called `nsmc` for convenience, but please, do not confuse this table with the mod's name. The mod's name is `ns_minerals_whatever`, and that is the name you must use when adding any mod as a dependency. I just want to make it absolutely clear. Sorry for being so pedantic.
 
-
 ---
 ## Changelog
 
-* 1.2.1 - Fixed a bug causing mods to load in an incorrect order, and another bug causing callbacks not to be registered correctly. Also implemented the abilitiy to add metadata to callback registration.
-* 1.2 - Made the mod into a modpack. Added `nslib` to the modpack.
-* 1.1 - Improved API documentation and corrected spelling mistakes. Added compatibility with farming mod. Added working hoes and scythes. Added the ability to choose the `texture_brightness` while using custom textures for the tools that do not have custom textures. Changed `is_metal` from `crafting.lua` to `mineral.mineral_type == "metal"`. It was a legacy variable name from back in 2020, when this API was part of nsam mod. The incorrect name caused metal type minerals to not register recipes.
-* 1.0 - Initial release: Automatic registration of tools, nodes, ores, craftitems and crafting recipes. Automatic generation of colorized textures for ALL the items from premade grayscale textures shipped with the API.
+- Fixed a bug causing mods to load in an incorrect order.
+- Fixed a bug causing callbacks not to be registered correctly.
+- Implemented the abilitiy to add metadata to callback registration.
 
 ---
 ## API Documentation
